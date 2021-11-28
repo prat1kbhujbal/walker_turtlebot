@@ -1,0 +1,23 @@
+<launch>
+
+  <arg name="rosbag_record" default="false"/>
+  <!-- Launches TurtleBot3 in gazebo world -->
+	<include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch">
+  <arg name="x_pos" default="-2.0"/>
+  <arg name="y_pos" default="0.0"/>
+  <arg name="z_pos" default="0.0"/>
+	</include>
+
+<!--Launches walker_bot node -->
+   <node pkg="walker_turtlebot" name="walker_bot" type="walker_bot"/>
+
+   <!-- State Publisher -->
+  <node name="robot_state_publisher" output="screen" pkg="robot_state_publisher" respawn="false" type="robot_state_publisher">
+  </node>
+  <node name="joint_state_publisher" output="screen" pkg="joint_state_publisher" respawn="false" type="joint_state_publisher"></node>
+    
+  <node pkg="rosbag" type="record" name="rosbag_record" 
+    args="record -O $(find walker_turtlebot)/results/bag_file -a -x '(.*)/camera(.*)'"
+    if="$(arg rosbag_record)"
+  />
+</launch>
