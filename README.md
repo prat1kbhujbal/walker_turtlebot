@@ -36,7 +36,7 @@ echo "export TURTLEBOT3_MODEL=waffle pi" >> ~/.bashrc
 ```bash
 mkdir -p <your_workspace_name>/src
 cd <your_workspace_name>/src
-git clone https://github.com/Prat33k-dev/beginner_tutorials.git
+git clone https://github.com/Prat33k-dev/walker_turtlebot.git
 cd <your_workspace_name>
 catkin_make
 ```
@@ -58,7 +58,7 @@ roslaunch walker_turtlebot walker_bot.launch
 1. Open your workspace in new terminal
 ```bash
 roscore
-cd ~/<your_workspace_name>/src/beginner_tutorials/results/
+cd ~/<your_workspace_name>/src/walker_turtlebot/results/
 rosbag info bag_file.bag
 rosbag play bag_file.bag
 ```
