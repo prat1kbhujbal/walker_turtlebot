@@ -3,6 +3,9 @@
   <arg name="rosbag_record" default="false"/>
   <!-- Launches TurtleBot3 in gazebo world -->
 	<include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch">
+  <arg name="x_pos" default="-2.0"/>
+  <arg name="y_pos" default="0.0"/>
+  <arg name="z_pos" default="0.0"/>
 	</include>
 
 <!--Launches walker_bot node -->
