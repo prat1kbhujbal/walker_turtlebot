@@ -53,30 +53,28 @@ class walkerRoomba {
    *
    * @return     void: Return nothing
    */
-  auto callbackObstacle(const sensor_msgs::LaserScan::ConstPtr& msg) -> void;
- /**
+  auto callbackObstacle(const sensor_msgs::LaserScan::ConstPtr &msg) -> void;
+  /**
    * @brief Mvve inside world until collision is detected
    */
   auto runRobot() -> void;
 
-
-
  private:
-   int _left_flag;             // left flag to check the collision at right and to move robot left
-   int _right_flag;           // / right flag to check the collision at left and to move robot right
-   ros::NodeHandle _n;        // node handle for the class
-    /**
+  int _left_flag;  // left flag to check the collision at right
+  int _right_flag;  // right flag to check the collision at left
+  ros::NodeHandle _n;  // node handle for the class
+  /**
    * @brief publisher object for the /cmd_vel topic
    * 
    */
-   ros::Publisher _pub;       
-   /**
+  ros::Publisher _pub;
+  /**
    * @brief subsriber to the /scan topic
    * 
    */
-   ros::Subscriber _sub;     
-   
-   geometry_msgs::Twist _vel; // velocity message
+  ros::Subscriber _sub;
+
+  geometry_msgs::Twist _vel;  // velocity message
 };
 
 #endif  // INCLUDE_WALKER_HPP_

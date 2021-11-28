@@ -33,11 +33,10 @@
 
 walkerRoomba::walkerRoomba() {
   // Publisher for velocity commands
-  _pub =
-      _n.advertise<geometry_msgs::Twist>("/cmd_vel", 1000);
+  _pub = _n.advertise < geometry_msgs::Twist > ("/cmd_vel", 1000);
   // Subscribe to laser scan data
-  _sub = _n.subscribe<sensor_msgs::LaserScan>(
-      "/scan", 1000, &walkerRoomba::callbackObstacle, this);
+  _sub = _n.subscribe < sensor_msgs::LaserScan
+      > ("/scan", 1000, &walkerRoomba::callbackObstacle, this);
 
 // Initialize both the flags to zero
   _left_flag = 0;
@@ -52,44 +51,39 @@ walkerRoomba::~walkerRoomba() {
 }
 
 auto walkerRoomba::callbackObstacle(
-    const sensor_msgs::LaserScan::ConstPtr& msg) -> void {
-     _left_flag = 0;
-     _right_flag = 0;
-     for (int i = 0; i < (msg->ranges.size()); i++)
-     {
-       // check for obstacles
-       if (msg->ranges[0] < 0.7 || msg->ranges[25] < 0.5)
-       {
-         _right_flag = 1;
-         _left_flag = 0;
-         ROS_WARN_STREAM("Obstacle at Left");
-       }
-       else if (msg->ranges[0] < 0.7 || msg->ranges[335] < 0.5)
-       {
-         _left_flag = 1;
-         _right_flag = 0;
-         ROS_WARN_STREAM("Obstacle at Right");
-       }
-     }
+    const sensor_msgs::LaserScan::ConstPtr &msg) -> void {
+  _left_flag = 0;
+  _right_flag = 0;
+  for (int i = 0; i < (msg->ranges.size()); i++) {
+    // check for obstacles
+    if (msg->ranges[0] < 0.7 || msg->ranges[25] < 0.5) {
+      _right_flag = 1;
+      _left_flag = 0;
+      ROS_WARN_STREAM("Obstacle at Left");
+    } else if (msg->ranges[0] < 0.7 || msg->ranges[335] < 0.5) {
+      _left_flag = 1;
+      _right_flag = 0;
+      ROS_WARN_STREAM("Obstacle at Right");
+    }
+  }
 }
 
 auto walkerRoomba::runRobot() -> void {
   // Initialize the rate at which the messages will be published
   ros::Rate rate(10.0);
   while (ros::ok()) {
-    if (_right_flag==1) {
+    if (_right_flag == 1) {
       _vel.linear.x = 0.0;
       _vel.angular.z = -0.5;
       ROS_INFO_STREAM("Turning Right");
-        } else if (_left_flag==1) {
+    } else if (_left_flag == 1) {
       _vel.linear.x = 0.0;
       _vel.angular.z = 0.5;
       ROS_INFO_STREAM("Turning Left");
-        }
-    else{
+    } else {
       _vel.linear.x = 0.2;
       _vel.angular.z = 0.0;
-       ROS_INFO_STREAM("Moving Forward");
+      ROS_INFO_STREAM("Moving Forward");
     }
     // Publish the velocity
     _pub.publish(_vel);
