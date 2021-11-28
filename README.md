@@ -45,7 +45,7 @@ catkin_make
 ```bash
 cd <your_workspace_name>
 source devel/setup.bash
-roslaunch walker_turtlebot walker_bot.launch rosbag_record:= true
+roslaunch walker_turtlebot walker_bot.launch rosbag_record:=true
 ```
 2. Running launch file without arguments (default rosbag record will be disable)
 ```bash
@@ -68,7 +68,7 @@ rosbag play bag_file.bag
 2. Verify using walker_bot node
 ```bash
 source devel/setup.bash
-rosrun 
+rosrun walker_turtlebot walker_bot
 ```
 
 * Output for rosbag play with walker_bot node
